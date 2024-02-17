@@ -1,7 +1,6 @@
 {
   "name": "laboratory",
   "version": "2.6.2",
-  "private": true,
   "scripts": {
     "dev": "rm -rf .next; next dev",
     "build": "next build",
@@ -24,6 +23,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.2.55",
+    "rollup": "^4.12.0",
     "typescript": "^5.3.3"
   }
 }
