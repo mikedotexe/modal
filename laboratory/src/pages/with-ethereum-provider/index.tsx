@@ -31,7 +31,24 @@ export default function WithEthereumProvider() {
     }
 
     try {
-      await providerClient.connect();
+      await providerClient.connect({
+        namespaces: {
+          "near": {
+            methods: [
+              "near_signIn",
+              "near_signOut",
+              "near_getAccounts",
+              "near_signTransaction",
+              "near_signTransactions",
+            ],
+            chains: ["near:mainnet"],
+            events: ["chainChanged", "accountsChanged"],
+            rpcMap: {
+              'near:mainnet': 'https://rpc.mainnet.near.org',
+            },
+          }
+        }
+      });
       setSession(true);
       NotificationCtrl.open('Connect', JSON.stringify(providerClient.session, null, 2));
     } catch (error) {
