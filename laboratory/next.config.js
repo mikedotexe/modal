@@ -1,8 +1,11 @@
-/** @type {import('next').NextConfig} */
+const withTM = require('next-transpile-modules')([
+  '@walletconnect/modal-ui',
+  '@walletconnect/modal-core',
+  '@walletconnect/universal-provider',
+  '@walletconnect/sign-client'
+]);
 
-// Only required within the scope of this monorepo
-const nextConfig = {
-  transpilePackages: ['@walletconnect/modal-ui', '@walletconnect/modal-core', '@walletconnect/universal-provider', '@walletconnect/sign-client'],
+const nextConfig = withTM({
   typescript: {
     ignoreBuildErrors: true
   },
@@ -18,7 +21,6 @@ const nextConfig = {
     config.externals.push("pino-pretty", "lokijs", "encoding");
     return config;
   },
-  // output: 'export'
-}
+});
 
-module.exports = nextConfig
+module.exports = nextConfig;
