@@ -1,27 +1,31 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["es2022"],
-    "module": "ES2020",
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": false,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "Node",
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitReturns": false,
+    "module": "esnext",
+    "moduleResolution": "node", // Changed from "bundler" to "node"
     "allowSyntheticDefaultImports": true,
-    "noFallthroughCasesInSwitch": false,
-//    "isolatedModules": true,
-//    "allowUnreachableCode": false,
-    "experimentalDecorators": true,
-    "baseUrl": ".",
-    "paths": {
-      "@walletconnect/types": ["node_modules/@walletconnect/types"]
-    }
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "experimentalDecorators": true, // Enable experimental decorators
+    "emitDecoratorMetadata": true, // Optionally enable decorator metadata
+    "plugins": [{"name": "next"}]
   },
-  "exclude": ["node_modules", "dist", "out"]
+  "include": [
+    "next-env.d.ts", ".next/types/**/*.ts", "middleware.ts",
+    "src/**/*", "app/**/*", "@types/**/*", "server/**/*"
+  ],
+  "paths": {
+    "@walletconnect/types": ["node_modules/@walletconnect/types"]
+  },
+  "exclude": ["node_modules", "**/*.spec.ts", "lib"]
 }
