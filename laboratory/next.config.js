@@ -11,6 +11,7 @@ const nextConfig = {
   },
   experimental: {
     esmExternals: false,
+    externalDir: true,
   },
   output: 'standalone'
   // output: 'export'
