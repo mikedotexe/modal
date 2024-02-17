@@ -30,15 +30,15 @@ export default function WithEthereumProvider() {
       return;
     }
 
-    // try {
-    //   await providerClient.connect();
-    //   setSession(true);
-    //   NotificationCtrl.open('Connect', JSON.stringify(providerClient.session, null, 2));
-    // } catch (error) {
-    //   console.log('aloha error', error);
-    //   const message = getErrorMessage(error);
-    //   showErrorToast(message);
-    // }
+    try {
+      await providerClient.connect();
+      setSession(true);
+      NotificationCtrl.open('Connect', JSON.stringify(providerClient.session, null, 2));
+    } catch (error) {
+      console.log('aloha error', error);
+      const message = getErrorMessage(error);
+      showErrorToast(message);
+    }
 
     console.log('aloha after onConnect');
   }
