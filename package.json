@@ -43,7 +43,7 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "lerna": "7.2.0",
     "prettier": "3.0.3",
-    "rollup": "3.29.1",
+    "rollup": "^3.29.1",
     "rollup-plugin-esbuild": "5.0.0",
     "rollup-plugin-lit-css": "4.0.1",
     "rollup-plugin-minify-html-literals": "1.2.6",
