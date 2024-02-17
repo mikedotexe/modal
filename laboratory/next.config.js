@@ -13,7 +13,11 @@ const nextConfig = {
     esmExternals: false,
     externalDir: true,
   },
-  output: 'standalone'
+  output: 'standalone',
+  webpack: (config) => {
+    config.externals.push("pino-pretty", "lokijs", "encoding");
+    return config;
+  },
   // output: 'export'
 }
 
