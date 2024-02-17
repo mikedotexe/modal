@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { NotificationCtrl } from '../../controllers/NotificationCtrl';
 import { getErrorMessage, showErrorToast } from '../../utilities/ErrorUtil';
 import { SignClient } from '@walletconnect/sign-client';
-import { SessionTypes } from '@walletconnect/types';
+import { ISignClient, SessionTypes } from '@walletconnect/types'
 import * as process from 'process'
 
 const PROJECT_ID = process.env.NEXT_PUBLIC_PROJECT_ID || "see readme and set project id env var"
@@ -19,20 +19,29 @@ const PROJECT_ID = process.env.NEXT_PUBLIC_PROJECT_ID || "see readme and set pro
 export default function WithEthereumProvider() {
   console.log('aloha');
   const [providerClient, setProviderClient] = useState<IUniversalProvider | undefined>(undefined);
+  const [signingClient, setSigningClient] = useState<ISignClient | undefined>(undefined);
   const [session, setSession] = useState<boolean>(false);
   const [disconnecting, setDisconnecting] = useState<boolean>(false);
 
   async function onConnect() {
     console.log('aloha onConnect. providerClient', providerClient);
+    console.log('aloha onConnect. signingClient', signingClient);
 
     if (!providerClient) {
       showErrorToast('providerClient is not initialized');
       return;
     }
 
+    if (!signingClient) {
+      showErrorToast('signingClient is not initialized');
+      return;
+    }
+
     try {
-      await providerClient.connect({
-        namespaces: {
+      // await providerClient.connect({
+      console.log('aloha before connecting…');
+      const res = await signingClient.connect({
+        requiredNamespaces: {
           "near": {
             methods: [
               "near_signIn",
@@ -43,12 +52,17 @@ export default function WithEthereumProvider() {
             ],
             chains: ["near:mainnet"],
             events: ["chainChanged", "accountsChanged"],
-            rpcMap: {
-              'near:mainnet': 'https://rpc.mainnet.near.org',
-            },
           }
         }
       });
+      console.log('aloha nice res', res);
+
+      /*
+         {
+          "uri": "wc:d98e1c603428096e622ba0fb43337cd409bf1a32ddeafd37c0275fa6ef7@2?expiryTimestamp=1308155724&relay-protocol=irn&symKey=42209102f16dcadb6bcb89232cbd2d31603d4f90e52270ef73bf117e1"
+         }
+      */
+
       setSession(true);
       NotificationCtrl.open('Connect', JSON.stringify(providerClient.session, null, 2));
     } catch (error) {
@@ -98,16 +112,16 @@ export default function WithEthereumProvider() {
         // Initialize the WalletConnect Client
         const client = await SignClient.init({
           logger: 'debug',
-
           projectId: PROJECT_ID,
-          relayUrl: "wss://relay.walletconnect.com",
           metadata: {
             name: "NEAR Unstaking",
             description: "Unstaking NEAR",
             url: "https://stake.mikedotexe.com/",
-            icons: [],
+            icons: ['https://mikedotexe.s3.us-west-2.amazonaws.com/heart-eva-beylin.jpeg'],
           },
         });
+
+        setSigningClient(client)
 
         // Initialize the Universal Provider with the WalletConnect Client
         // const universalProvider = new UniversalProvider(client, {
@@ -123,7 +137,7 @@ export default function WithEthereumProvider() {
             name: "NEAR Unstaking",
             description: "Unstaking NEAR",
             url: "https://stake.mikedotexe.com/",
-            icons: [],
+            icons: ['https://mikedotexe.s3.us-west-2.amazonaws.com/heart-eva-beylin.jpeg'],
           },
           client
         });
