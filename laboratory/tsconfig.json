@@ -4,7 +4,11 @@
     "jsx": "preserve",
     "noEmit": true,
     "incremental": true,
-    "module": "esnext"
+    "module": "esnext",
+    "isolatedModules": true
   },
-  "include": ["next-env.d.ts", "src"]
+  "include": [
+    "next-env.d.ts",
+    "src"
+  ]
 }

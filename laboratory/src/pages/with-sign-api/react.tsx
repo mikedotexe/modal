@@ -17,6 +17,7 @@ export default function WithSignReactPage() {
   const [disconnecting, setDisconnecting] = useState<boolean>(false)
 
   const session = useSession()
+  console.log('aloha session', session)
   const { request } = useRequest(
     DEMO_SIGN_REQUEST(
       session?.topic as string,

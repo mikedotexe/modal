@@ -19,6 +19,7 @@ export default function WithSignHtmlPage() {
   const [disconnecting, setDisconnecting] = useState<boolean>(false)
 
   async function onConnect() {
+    console.log('aloha onSignMessage')
     try {
       const result = await web3ModalSign.connect(DEMO_NAMESPACE)
       setSession(result)
@@ -49,12 +50,16 @@ export default function WithSignHtmlPage() {
   }
 
   async function onSignMessage() {
+        console.log('aloha onSignMessage')
+
     try {
       if (session) {
+        console.log('aloha onSignMessage')
         const account = getAddressFromAccount(session.namespaces.eip155.accounts[0])
         const result = await web3ModalSign.request(DEMO_SIGN_REQUEST(session.topic, account))
         NotificationCtrl.open('Sign Message', JSON.stringify(result, null, 2))
       } else {
+        console.log('aloha onSignMessage2')
         NotificationCtrl.open('Sign Message', 'No active session, please connect first')
       }
     } catch (error) {

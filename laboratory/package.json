@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "rm -rf .next; next dev",
-    "build": "next build"
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@nextui-org/react": "1.0.0-beta.13",
@@ -14,6 +15,7 @@
     "@walletconnect/modal-auth-react": "2.6.2",
     "@walletconnect/modal-sign-html": "2.6.2",
     "@walletconnect/modal-sign-react": "2.6.2",
+    "@walletconnect/types": "^2.11.1",
     "next": "13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
