@@ -12,6 +12,7 @@ const nextConfig = {
   experimental: {
     esmExternals: false,
   },
+  output: 'standalone'
   // output: 'export'
 }
 
